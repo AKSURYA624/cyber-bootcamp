@@ -1,0 +1,2169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>90-Day Cybersecurity Intensive Bootcamp</title>
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --card-bg: #111;
+            --card-bg-light: #1a1a1a;
+            --text-main: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --accent: #00ff41;
+            --accent-dim: rgba(0, 255, 65, 0.1);
+            --accent-dark: #00aa2c;
+            --danger: #ff0055;
+            --warning: #ffaa00;
+            --success: #00ff41;
+            --font-mono: 'Courier New', Courier, monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 20px;
+            width: 100%;
+            max-width: 1600px;
+        }
+
+        h1 {
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--accent);
+            margin-bottom: 5px;
+            font-size: 2.2rem;
+        }
+
+        .subtitle {
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .course-info {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--warning);
+            margin-top: 10px;
+        }
+
+        .progress-section {
+            width: 100%;
+            max-width: 1400px;
+            margin-bottom: 30px;
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #333;
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-family: var(--font-mono);
+            color: var(--accent);
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: #222;
+            border-radius: 10px;
+            height: 25px;
+            overflow: hidden;
+            border: 1px solid #333;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+            transition: width 0.5s ease-in-out;
+            box-shadow: 0 0 15px var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-weight: bold;
+            font-size: 0.75rem;
+        }
+
+        .progress-text {
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1600px;
+            margin-bottom: 30px;
+        }
+
+        .phase-card {
+            background-color: var(--card-bg);
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phase-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 0 20px var(--accent-dim);
+        }
+
+        .phase-card.completed {
+            border-color: var(--success);
+            background-color: rgba(0, 255, 65, 0.05);
+        }
+
+        .phase-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .phase-number {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: #000;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            min-width: 45px;
+            text-align: center;
+        }
+
+        .phase-title {
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-weight: bold;
+            font-size: 1.05rem;
+            flex: 1;
+        }
+
+        .duration-badge {
+            background-color: #222;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-family: var(--font-mono);
+            white-space: nowrap;
+        }
+
+        .lecture-list {
+            list-style: none;
+        }
+
+        .lecture-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            padding: 8px;
+            border-radius: 5px;
+            transition: all 0.2s;
+        }
+
+        .lecture-item:hover {
+            background-color: var(--card-bg-light);
+        }
+
+        .lecture-item input[type="checkbox"] {
+            margin-right: 10px;
+            margin-top: 3px;
+            accent-color: var(--accent);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .lecture-text {
+            transition: color 0.3s;
+            flex: 1;
+        }
+
+        .lecture-item.completed .lecture-text {
+            text-decoration: line-through;
+            color: #555;
+        }
+
+        .phase-separator {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 25px;
+            border: 2px solid var(--accent);
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+            color: var(--accent);
+            font-family: var(--font-mono);
+            margin: 20px 0;
+            font-weight: bold;
+            font-size: 1.3rem;
+            border-radius: 8px;
+        }
+
+        .goal-section {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, #0d1a0d 0%, #1a0d1a 100%);
+            border: 2px solid var(--accent);
+            text-align: center;
+            padding: 50px 30px;
+            margin-top: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 30px var(--accent-dim);
+        }
+
+        .goal-title {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            color: #fff;
+            font-family: var(--font-mono);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .goal-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .goal-items {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .goal-item {
+            text-align: center;
+        }
+
+        .goal-item-value {
+            color: var(--accent);
+            font-size: 1.8rem;
+            font-weight: bold;
+            font-family: var(--font-mono);
+        }
+
+        .goal-item-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            padding: 20px;
+            border-top: 1px solid #333;
+            width: 100%;
+        }
+
+        .week-label {
+            background-color: var(--danger);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            margin-left: 5px;
+            font-weight: bold;
+        }
+
+        .timetable-section {
+            width: 100%;
+            max-width: 1400px;
+            margin-bottom: 30px;
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid var(--accent);
+        }
+
+        .timetable-title {
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .timetable-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            width: 100%;
+        }
+
+        .time-slot {
+            background-color: var(--card-bg-light);
+            border-left: 4px solid var(--accent);
+            padding: 12px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .time-slot:hover {
+            background-color: #222;
+            box-shadow: 0 0 10px var(--accent-dim);
+        }
+
+        .time-slot.study {
+            border-left-color: #00ff41;
+            background-color: rgba(0, 255, 65, 0.05);
+        }
+
+        .time-slot.exercise {
+            border-left-color: #ffaa00;
+            background-color: rgba(255, 170, 0, 0.05);
+        }
+
+        .time-slot.meals {
+            border-left-color: #ff6b6b;
+            background-color: rgba(255, 107, 107, 0.05);
+        }
+
+        .time-slot.college {
+            border-left-color: #0066ff;
+            background-color: rgba(0, 102, 255, 0.05);
+        }
+
+        .time-slot.sleep {
+            border-left-color: #9933ff;
+            background-color: rgba(153, 51, 255, 0.05);
+        }
+
+        .time-range {
+            font-family: var(--font-mono);
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+
+        .time-activity {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 3px;
+        }
+
+        .time-duration {
+            font-size: 0.8rem;
+            color: #666;
+            font-family: var(--font-mono);
+        }
+
+        .calendar-section {
+            width: 100%;
+            max-width: 1400px;
+            margin-bottom: 30px;
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid var(--accent);
+        }
+
+        .calendar-title {
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .calendar-month {
+            background-color: var(--card-bg-light);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .calendar-month-title {
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            text-align: center;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 8px;
+        }
+
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+            margin-bottom: 5px;
+        }
+
+        .calendar-weekday {
+            text-align: center;
+            color: var(--text-secondary);
+            font-weight: bold;
+            font-size: 0.75rem;
+            padding: 5px 0;
+        }
+
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .calendar-day:hover {
+            background-color: #1a1a1a;
+        }
+
+        .calendar-day input[type="checkbox"] {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .calendar-day.bootcamp-active {
+            background-color: rgba(0, 255, 65, 0.2);
+            color: var(--accent);
+            border-color: var(--accent);
+            font-weight: bold;
+        }
+
+        .calendar-day.bootcamp-active:hover {
+            background-color: rgba(0, 255, 65, 0.3);
+        }
+
+        .calendar-day.bootcamp-active.checked {
+            background-color: rgba(0, 255, 65, 0.5);
+            box-shadow: inset 0 0 10px rgba(0, 255, 65, 0.4);
+        }
+
+        .calendar-day.bootcamp-active.checked::after {
+            content: "✓";
+            position: absolute;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .calendar-day.start-date {
+            background-color: rgba(0, 255, 65, 0.4);
+            color: var(--accent);
+            border-color: var(--accent);
+            font-weight: bold;
+            box-shadow: inset 0 0 8px rgba(0, 255, 65, 0.3);
+        }
+
+        .calendar-day.end-date {
+            background-color: rgba(255, 0, 85, 0.4);
+            color: #ff0055;
+            border-color: #ff0055;
+            font-weight: bold;
+            box-shadow: inset 0 0 8px rgba(255, 0, 85, 0.3);
+        }
+
+        .calendar-legend {
+            display: flex;
+            gap: 20px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-box {
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+            border: 1px solid;
+        }
+
+        .legend-active {
+            background-color: rgba(0, 255, 65, 0.2);
+            border-color: var(--accent);
+        }
+
+        .legend-start {
+            background-color: rgba(0, 255, 65, 0.4);
+            border-color: var(--accent);
+        }
+
+        .legend-end {
+            background-color: rgba(255, 0, 85, 0.4);
+            border-color: #ff0055;
+        }
+
+        @media (max-width: 1024px) {
+            .grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+            .stats-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .stat-value {
+                font-size: 1.5rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            h1 {
+                font-size: 1.3rem;
+                letter-spacing: 1px;
+            }
+
+            .subtitle {
+                font-size: 0.85rem;
+            }
+
+            .progress-section {
+                padding: 15px;
+            }
+
+            .stats-row {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .stat-value {
+                font-size: 1.3rem;
+            }
+
+            .phase-card {
+                padding: 15px;
+            }
+
+            .phase-title {
+                font-size: 0.95rem;
+            }
+
+            .goal-items {
+                gap: 15px;
+                flex-direction: column;
+            }
+
+            .goal-title {
+                font-size: 1.5rem;
+            }
+
+            .goal-item-value {
+                font-size: 1.5rem;
+            }
+
+            .timetable-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .time-slot {
+                padding: 12px;
+            }
+
+            .calendar-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .calendar-month {
+                padding: 12px;
+            }
+
+            .lecture-item {
+                font-size: 0.85rem;
+                margin-bottom: 8px;
+                padding: 6px;
+            }
+
+            .duration-badge {
+                font-size: 0.65rem;
+                padding: 3px 8px;
+            }
+
+            header {
+                padding-bottom: 15px;
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.1rem;
+                letter-spacing: 0.5px;
+            }
+
+            .subtitle {
+                font-size: 0.75rem;
+            }
+
+            .course-info {
+                font-size: 0.75rem;
+            }
+
+            .progress-section {
+                padding: 12px;
+                margin-bottom: 20px;
+            }
+
+            .stat-item {
+                flex: 1;
+                min-width: 100px;
+            }
+
+            .stat-label {
+                font-size: 0.7rem;
+            }
+
+            .stat-value {
+                font-size: 1.1rem;
+            }
+
+            .progress-container {
+                height: 20px;
+                margin-bottom: 8px;
+            }
+
+            .progress-text {
+                font-size: 0.75rem;
+                line-height: 1.3;
+            }
+
+            .phase-card {
+                padding: 12px;
+                border-radius: 8px;
+            }
+
+            .phase-header {
+                gap: 8px;
+                margin-bottom: 12px;
+            }
+
+            .phase-number {
+                font-size: 0.8rem;
+                padding: 4px 10px;
+            }
+
+            .phase-title {
+                font-size: 0.85rem;
+            }
+
+            .duration-badge {
+                font-size: 0.6rem;
+                padding: 2px 6px;
+            }
+
+            .lecture-item {
+                font-size: 0.8rem;
+                margin-bottom: 6px;
+                padding: 5px;
+            }
+
+            .lecture-item input[type="checkbox"] {
+                margin-right: 8px;
+            }
+
+            .goal-section {
+                padding: 25px 15px;
+                margin-top: 20px;
+            }
+
+            .goal-title {
+                font-size: 1.2rem;
+                margin-bottom: 10px;
+                letter-spacing: 1px;
+            }
+
+            .goal-subtitle {
+                font-size: 0.9rem;
+                margin-bottom: 10px;
+            }
+
+            .goal-items {
+                gap: 10px;
+                margin-top: 15px;
+            }
+
+            .goal-item-value {
+                font-size: 1.3rem;
+            }
+
+            .goal-item-text {
+                font-size: 0.75rem;
+            }
+
+            .timetable-section {
+                padding: 12px;
+                margin-bottom: 20px;
+            }
+
+            .timetable-title {
+                font-size: 1rem;
+                margin-bottom: 12px;
+            }
+
+            .timetable-grid {
+                gap: 10px;
+            }
+
+            .time-slot {
+                padding: 10px;
+            }
+
+            .time-range {
+                font-size: 0.8rem;
+                margin-bottom: 4px;
+            }
+
+            .time-activity {
+                font-size: 0.8rem;
+                margin-bottom: 2px;
+            }
+
+            .time-duration {
+                font-size: 0.7rem;
+            }
+
+            .calendar-section {
+                padding: 12px;
+            }
+
+            .calendar-title {
+                font-size: 1rem;
+                margin-bottom: 15px;
+            }
+
+            .calendar-weekday {
+                font-size: 0.65rem;
+            }
+
+            .calendar-day {
+                font-size: 0.7rem;
+            }
+
+            .phase-separator {
+                padding: 15px;
+                font-size: 1rem;
+                margin: 15px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>>>> 90-DAY CYBERSECURITY INTENSIVE BOOTCAMP</h1>
+        <div class="subtitle">B.Tech CSE (Cybersecurity & Ethical Hacking) | Final Year | 3-Month Mastery</div>
+        <div class="course-info">
+            20 Sections • 98 Lectures • 21h 19m | ~1 Hour/Day | From Day 1 to Job Ready Professional<br>
+            <a href="https://www.udemy.com/course/cybersecurity-ethical-hacking-pentesting-all-in-one/?couponCode=KEEPLEARNING" target="_blank" style="color: #00ff41; text-decoration: none; margin-top: 10px; display: inline-block;">
+                📺 Access Full Course on Udemy →
+            </a>
+        </div>
+    </header>
+
+    <div class="progress-section">
+        <div class="stats-row">
+            <div class="stat-item">
+                <div class="stat-label">LECTURES COMPLETED</div>
+                <div class="stat-value"><span id="completedLectures">0</span>/98</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">SECTIONS COMPLETED</div>
+                <div class="stat-value"><span id="completedSections">0</span>/20</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">OVERALL PROGRESS</div>
+                <div class="stat-value"><span id="percentText">0</span>%</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">DAYS REMAINING</div>
+                <div class="stat-value"><span id="daysRemaining">90</span></div>
+            </div>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar">0%</div>
+        </div>
+        <div class="progress-text">
+            Complete ~1 lecture per day to master cybersecurity in 90 days • Started: January 3, 2026 • Target: April 3, 2026
+        </div>
+    </div>
+
+    <!-- DAILY TIMETABLE SECTION -->
+    <div class="timetable-section">
+        <div class="timetable-title">📅 Daily Schedule & Timetable</div>
+        <div class="timetable-grid">
+            <div class="time-slot sleep">
+                <div class="time-range">12:00 AM - 6:00 AM</div>
+                <div class="time-activity">🛌 Sleep & Rest</div>
+                <div class="time-duration">6 hours</div>
+            </div>
+            <div class="time-slot exercise">
+                <div class="time-range">6:00 AM - 7:00 AM</div>
+                <div class="time-activity">💪 Workout & Exercise</div>
+                <div class="time-duration">1 hour</div>
+            </div>
+            <div class="time-slot study">
+                <div class="time-range">7:00 AM - 9:15 AM</div>
+                <div class="time-activity">📚 Early Study Session</div>
+                <div class="time-duration">2 hours 15 min</div>
+            </div>
+            <div class="time-slot meals">
+                <div class="time-range">9:15 AM - 10:00 AM</div>
+                <div class="time-activity">🍽️ Breakfast</div>
+                <div class="time-duration">45 minutes</div>
+            </div>
+            <div class="time-slot college">
+                <div class="time-range">10:00 AM - 5:00 PM</div>
+                <div class="time-activity">🎓 College Classes</div>
+                <div class="time-duration">7 hours</div>
+            </div>
+            <div class="time-slot study">
+                <div class="time-range">5:00 PM - 6:00 PM</div>
+                <div class="time-activity">🔧 Other Works & Tasks</div>
+                <div class="time-duration">1 hour</div>
+            </div>
+            <div class="time-slot study">
+                <div class="time-range">6:00 PM - 8:30 PM</div>
+                <div class="time-activity">📖 Evening Study Session</div>
+                <div class="time-duration">2 hours 30 min</div>
+            </div>
+            <div class="time-slot meals">
+                <div class="time-range">8:30 PM - 9:30 PM</div>
+                <div class="time-activity">🍲 Dinner</div>
+                <div class="time-duration">1 hour</div>
+            </div>
+            <div class="time-slot study">
+                <div class="time-range">9:30 PM - 12:00 AM</div>
+                <div class="time-activity">🎯 Night Study/Projects</div>
+                <div class="time-duration">2 hours 30 min</div>
+            </div>
+        </div>
+        <p style="margin-top: 15px; color: var(--text-secondary); font-family: var(--font-mono); font-size: 0.85rem;">
+            ✓ Daily Study Time: 4 hours 45 minutes | ✓ Other Works: 1 hour | ✓ Total Productive Hours: 13+ hours | ✓ Sleep: 6 hours | ✓ Exercise & Meals: 2 hours
+        </p>
+    </div>
+
+    <!-- CALENDAR SECTION -->
+    <div class="calendar-section">
+        <div class="calendar-title">📆 90-Day Bootcamp Timeline: January - April 2026</div>
+        
+        <div class="calendar-grid">
+            <!-- JANUARY 2026 -->
+            <div class="calendar-month">
+                <div class="calendar-month-title">January 2026</div>
+                <div class="calendar-weekdays">
+                    <div class="calendar-weekday">Sun</div>
+                    <div class="calendar-weekday">Mon</div>
+                    <div class="calendar-weekday">Tue</div>
+                    <div class="calendar-weekday">Wed</div>
+                    <div class="calendar-weekday">Thu</div>
+                    <div class="calendar-weekday">Fri</div>
+                    <div class="calendar-weekday">Sat</div>
+                </div>
+                <div class="calendar-days">
+                    <div class="calendar-day"></div>
+                    <div class="calendar-day"></div>
+                    <div class="calendar-day"></div>
+                    <div class="calendar-day"></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-1" onchange="updateCalendarProgress()"><span>1</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-2" onchange="updateCalendarProgress()"><span>2</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-3" onchange="updateCalendarProgress()"><span>3</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-4" onchange="updateCalendarProgress()"><span>4</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-5" onchange="updateCalendarProgress()"><span>5</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-6" onchange="updateCalendarProgress()"><span>6</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-7" onchange="updateCalendarProgress()"><span>7</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-8" onchange="updateCalendarProgress()"><span>8</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-9" onchange="updateCalendarProgress()"><span>9</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-10" onchange="updateCalendarProgress()"><span>10</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-11" onchange="updateCalendarProgress()"><span>11</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-12" onchange="updateCalendarProgress()"><span>12</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-13" onchange="updateCalendarProgress()"><span>13</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-14" onchange="updateCalendarProgress()"><span>14</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-15" onchange="updateCalendarProgress()"><span>15</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-16" onchange="updateCalendarProgress()"><span>16</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-17" onchange="updateCalendarProgress()"><span>17</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-18" onchange="updateCalendarProgress()"><span>18</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-19" onchange="updateCalendarProgress()"><span>19</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-20" onchange="updateCalendarProgress()"><span>20</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-21" onchange="updateCalendarProgress()"><span>21</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-22" onchange="updateCalendarProgress()"><span>22</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-23" onchange="updateCalendarProgress()"><span>23</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-24" onchange="updateCalendarProgress()"><span>24</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-25" onchange="updateCalendarProgress()"><span>25</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-26" onchange="updateCalendarProgress()"><span>26</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-27" onchange="updateCalendarProgress()"><span>27</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-28" onchange="updateCalendarProgress()"><span>28</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-29" onchange="updateCalendarProgress()"><span>29</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-30" onchange="updateCalendarProgress()"><span>30</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="jan-31" onchange="updateCalendarProgress()"><span>31</span></div>
+                </div>
+            </div>
+
+            <!-- FEBRUARY 2026 -->
+            <div class="calendar-month">
+                <div class="calendar-month-title">February 2026</div>
+                <div class="calendar-weekdays">
+                    <div class="calendar-weekday">Sun</div>
+                    <div class="calendar-weekday">Mon</div>
+                    <div class="calendar-weekday">Tue</div>
+                    <div class="calendar-weekday">Wed</div>
+                    <div class="calendar-weekday">Thu</div>
+                    <div class="calendar-weekday">Fri</div>
+                    <div class="calendar-weekday">Sat</div>
+                </div>
+                <div class="calendar-days">
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-1" onchange="updateCalendarProgress()"><span>1</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-2" onchange="updateCalendarProgress()"><span>2</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-3" onchange="updateCalendarProgress()"><span>3</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-4" onchange="updateCalendarProgress()"><span>4</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-5" onchange="updateCalendarProgress()"><span>5</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-6" onchange="updateCalendarProgress()"><span>6</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-7" onchange="updateCalendarProgress()"><span>7</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-8" onchange="updateCalendarProgress()"><span>8</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-9" onchange="updateCalendarProgress()"><span>9</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-10" onchange="updateCalendarProgress()"><span>10</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-11" onchange="updateCalendarProgress()"><span>11</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-12" onchange="updateCalendarProgress()"><span>12</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-13" onchange="updateCalendarProgress()"><span>13</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-14" onchange="updateCalendarProgress()"><span>14</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-15" onchange="updateCalendarProgress()"><span>15</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-16" onchange="updateCalendarProgress()"><span>16</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-17" onchange="updateCalendarProgress()"><span>17</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-18" onchange="updateCalendarProgress()"><span>18</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-19" onchange="updateCalendarProgress()"><span>19</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-20" onchange="updateCalendarProgress()"><span>20</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-21" onchange="updateCalendarProgress()"><span>21</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-22" onchange="updateCalendarProgress()"><span>22</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-23" onchange="updateCalendarProgress()"><span>23</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-24" onchange="updateCalendarProgress()"><span>24</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-25" onchange="updateCalendarProgress()"><span>25</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-26" onchange="updateCalendarProgress()"><span>26</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-27" onchange="updateCalendarProgress()"><span>27</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="feb-28" onchange="updateCalendarProgress()"><span>28</span></div>
+                </div>
+            </div>
+
+            <!-- MARCH 2026 -->
+            <div class="calendar-month">
+                <div class="calendar-month-title">March 2026</div>
+                <div class="calendar-weekdays">
+                    <div class="calendar-weekday">Sun</div>
+                    <div class="calendar-weekday">Mon</div>
+                    <div class="calendar-weekday">Tue</div>
+                    <div class="calendar-weekday">Wed</div>
+                    <div class="calendar-weekday">Thu</div>
+                    <div class="calendar-weekday">Fri</div>
+                    <div class="calendar-weekday">Sat</div>
+                </div>
+                <div class="calendar-days">
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-1" onchange="updateCalendarProgress()"><span>1</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-2" onchange="updateCalendarProgress()"><span>2</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-3" onchange="updateCalendarProgress()"><span>3</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-4" onchange="updateCalendarProgress()"><span>4</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-5" onchange="updateCalendarProgress()"><span>5</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-6" onchange="updateCalendarProgress()"><span>6</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-7" onchange="updateCalendarProgress()"><span>7</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-8" onchange="updateCalendarProgress()"><span>8</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-9" onchange="updateCalendarProgress()"><span>9</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-10" onchange="updateCalendarProgress()"><span>10</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-11" onchange="updateCalendarProgress()"><span>11</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-12" onchange="updateCalendarProgress()"><span>12</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-13" onchange="updateCalendarProgress()"><span>13</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-14" onchange="updateCalendarProgress()"><span>14</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-15" onchange="updateCalendarProgress()"><span>15</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-16" onchange="updateCalendarProgress()"><span>16</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-17" onchange="updateCalendarProgress()"><span>17</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-18" onchange="updateCalendarProgress()"><span>18</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-19" onchange="updateCalendarProgress()"><span>19</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-20" onchange="updateCalendarProgress()"><span>20</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-21" onchange="updateCalendarProgress()"><span>21</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-22" onchange="updateCalendarProgress()"><span>22</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-23" onchange="updateCalendarProgress()"><span>23</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-24" onchange="updateCalendarProgress()"><span>24</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-25" onchange="updateCalendarProgress()"><span>25</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-26" onchange="updateCalendarProgress()"><span>26</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-27" onchange="updateCalendarProgress()"><span>27</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-28" onchange="updateCalendarProgress()"><span>28</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-29" onchange="updateCalendarProgress()"><span>29</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-30" onchange="updateCalendarProgress()"><span>30</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="mar-31" onchange="updateCalendarProgress()"><span>31</span></div>
+                </div>
+            </div>
+
+            <!-- APRIL 2026 -->
+            <div class="calendar-month">
+                <div class="calendar-month-title">April 2026</div>
+                <div class="calendar-weekdays">
+                    <div class="calendar-weekday">Sun</div>
+                    <div class="calendar-weekday">Mon</div>
+                    <div class="calendar-weekday">Tue</div>
+                    <div class="calendar-weekday">Wed</div>
+                    <div class="calendar-weekday">Thu</div>
+                    <div class="calendar-weekday">Fri</div>
+                    <div class="calendar-weekday">Sat</div>
+                </div>
+                <div class="calendar-days">
+                    <div class="calendar-day"></div>
+                    <div class="calendar-day"></div>
+                    <div class="calendar-day"></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-1" onchange="updateCalendarProgress()"><span>1</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-2" onchange="updateCalendarProgress()"><span>2</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-3" onchange="updateCalendarProgress()"><span>3</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-4" onchange="updateCalendarProgress()"><span>4</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-5" onchange="updateCalendarProgress()"><span>5</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-6" onchange="updateCalendarProgress()"><span>6</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-7" onchange="updateCalendarProgress()"><span>7</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-8" onchange="updateCalendarProgress()"><span>8</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-9" onchange="updateCalendarProgress()"><span>9</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-10" onchange="updateCalendarProgress()"><span>10</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-11" onchange="updateCalendarProgress()"><span>11</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-12" onchange="updateCalendarProgress()"><span>12</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-13" onchange="updateCalendarProgress()"><span>13</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-14" onchange="updateCalendarProgress()"><span>14</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-15" onchange="updateCalendarProgress()"><span>15</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-16" onchange="updateCalendarProgress()"><span>16</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-17" onchange="updateCalendarProgress()"><span>17</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-18" onchange="updateCalendarProgress()"><span>18</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-19" onchange="updateCalendarProgress()"><span>19</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-20" onchange="updateCalendarProgress()"><span>20</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-21" onchange="updateCalendarProgress()"><span>21</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-22" onchange="updateCalendarProgress()"><span>22</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-23" onchange="updateCalendarProgress()"><span>23</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-24" onchange="updateCalendarProgress()"><span>24</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-25" onchange="updateCalendarProgress()"><span>25</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-26" onchange="updateCalendarProgress()"><span>26</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-27" onchange="updateCalendarProgress()"><span>27</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-28" onchange="updateCalendarProgress()"><span>28</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-29" onchange="updateCalendarProgress()"><span>29</span></div>
+                    <div class="calendar-day bootcamp-active"><input type="checkbox" class="day-checkbox" data-date="apr-30" onchange="updateCalendarProgress()"><span>30</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="calendar-legend">
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="phase-separator">╔═══════════════════════════════════════════════╗<br>MONTH 1: FOUNDATIONAL EXPERTISE (Days 1-30)<br>Build Arsenal • Kali • BurpSuite • Basic Vulnerabilities<br>╚═══════════════════════════════════════════════╝</div>
+
+        <!-- Section 1: Kali Linux -->
+        <div class="phase-card">
+            <div class="phase-header">
+                <span class="phase-number">S1</span>
+                <span class="phase-title">Kali Linux Mastery</span>
+                <span class="duration-badge">Days 1-3 | 2 lec</span>
+            </div>
+            <ul class="lecture-list">
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Installation & Configuration of Kali Linux</span>
+                        <span class="week-label">W1</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Master Kali From Basic to Advanced</span>
+                        <span class="week-label">W1</span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Section 2: BurpSuite -->
+        <div class="phase-card">
+            <div class="phase-header">
+                <span class="phase-number">S2</span>
+                <span class="phase-title">BurpSuite Professional</span>
+                <span class="duration-badge">Days 4-6 | 2 lec</span>
+            </div>
+            <ul class="lecture-list">
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Configure & Install BurpSuite Step-by-Step</span>
+                        <span class="week-label">W1</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Master BurpSuite Professional in One Lecture</span>
+                        <span class="week-label">W2</span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Section 3: File Path Traversal -->
+        <div class="phase-card">
+            <div class="phase-header">
+                <span class="phase-number">S3</span>
+                <span class="phase-title">File Path Traversal</span>
+                <span class="duration-badge">Days 7-12 | 4 lec</span>
+            </div>
+            <ul class="lecture-list">
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">File Path Traversal Vulnerabilities - Simple Case</span>
+                        <span class="week-label">W2</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Traversal Sequences Blocked with Absolute Path Bypass</span>
+                        <span class="week-label">W2</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Traversal Sequences Stripped Non-Recursively</span>
+                        <span class="week-label">W2</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Automate the Art of Finding File Path Traversal</span>
+                        <span class="week-label">W2</span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Section 4: Information Disclosure -->
+        <div class="phase-card">
+            <div class="phase-header">
+                <span class="phase-number">S4</span>
+                <span class="phase-title">Information Disclosure</span>
+                <span class="duration-badge">Days 13-18 | 4 lec</span>
+            </div>
+            <ul class="lecture-list">
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">What is Information Disclosure Vulnerabilities</span>
+                        <span class="week-label">W3</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Information Disclosure in Error Messages</span>
+                        <span class="week-label">W3</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Information Disclosure on Debug Page</span>
+                        <span class="week-label">W3</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Automate Finding Information Disclosure Vulnerabilities</span>
+                        <span class="week-label">W3</span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Section 5: OS Command Injection -->
+        <div class="phase-card">
+            <div class="phase-header">
+                <span class="phase-number">S5</span>
+                <span class="phase-title">OS Command Injection</span>
+                <span class="duration-badge">Days 19-24 | 4 lec</span>
+            </div>
+            <ul class="lecture-list">
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Introduction to OS Command Injection</span>
+                        <span class="week-label">W3</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">What is OS Command Injection - Simple Case</span>
+                        <span class="week-label">W4</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Blind OS Command Injection with Time Delays</span>
+                        <span class="week-label">W4</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Blind OS Command Injection with Output Redirection</span>
+                        <span class="week-label">W4</span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Section 6: SSRF -->
+        <div class="phase-card">
+            <div class="phase-header">
+                <span class="phase-number">S6</span>
+                <span class="phase-title">Server-Side Request Forgery</span>
+                <span class="duration-badge">Days 25-30 | 4 lec</span>
+            </div>
+            <ul class="lecture-list">
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">What is Server-Side Request Forgery (SSRF)</span>
+                        <span class="week-label">W4</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Basic SSRF Against the Local Server</span>
+                        <span class="week-label">W4</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Basic SSRF Against Another Back-end System</span>
+                        <span class="week-label">W4</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">SSRF with Blacklist-based Input Filter</span>
+                        <span class="week-label">W4</span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+
+        <!-- MONTH 2: DAYS 31-60 (WEEKS 5-8) -->
+        <div class="phase-separator">╔═══════════════════════════════════════════════╗<br>MONTH 2: INTERMEDIATE EXPLOITATION (Days 31-60)<br>File Uploads • Access Control • Business Logic • XSS<br>╚═══════════════════════════════════════════════╝</div>
+
+        <!-- Section 7: File Upload Vulnerabilities -->
+        <div class="phase-card">
+            <div class="phase-header">
+                <span class="phase-number">S7</span>
+                <span class="phase-title">File Upload Vulnerabilities</span>
+                <span class="duration-badge">Days 31-37 | 6 lec</span>
+            </div>
+            <ul class="lecture-list">
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">What is File Upload Vulnerabilities</span>
+                        <span class="week-label">W5</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Remote Code Execution via Web Shell Upload</span>
+                        <span class="week-label">W5</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Web Shell Upload via Content-Type Restriction Bypass</span>
+                        <span class="week-label">W5</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Web Shell Upload via Path Traversal</span>
+                        <span class="week-label">W5</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Web Shell Upload via Obfuscated File Extension</span>
+                        <span class="week-label">W6</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Remote Code Execution via Polyglot Web Shell Upload</span>
+                        <span class="week-label">W6</span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Section 8: Access Control -->
+        <div class="phase-card">
+            <div class="phase-header">
+                <span class="phase-number">S8</span>
+                <span class="phase-title">Access Control Vulnerabilities</span>
+                <span class="duration-badge">Days 38-45 | 7 lec</span>
+            </div>
+            <ul class="lecture-list">
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">What is Access Control Vulnerabilities</span>
+                        <span class="week-label">W6</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Unprotected Admin Functionality</span>
+                        <span class="week-label">W6</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Unprotected Admin Functionality with Unpredictable URL</span>
+                        <span class="week-label">W6</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">User Role Controlled by Request Parameter</span>
+                        <span class="week-label">W7</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">User Role can be Modified in User Profile</span>
+                        <span class="week-label">W7</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">User ID Controlled by Request Parameter with Password Disclosure</span>
+                        <span class="week-label">W7</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Insecure Direct Object References (IDOR)</span>
+                        <span class="week-label">W7</span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Section 9: Business Logic -->
+        <div class="phase-card">
+            <div class="phase-header">
+                <span class="phase-number">S9</span>
+                <span class="phase-title">Business Logic Vulnerabilities</span>
+                <span class="duration-badge">Days 46-52 | 7 lec</span>
+            </div>
+            <ul class="lecture-list">
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Introduction to Business Logic Vulnerabilities</span>
+                        <span class="week-label">W7</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Excessive Trust in Client-side Controls</span>
+                        <span class="week-label">W7</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">High-level Logic Vulnerability</span>
+                        <span class="week-label">W8</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Inconsistent Security Controls</span>
+                        <span class="week-label">W8</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Flawed Enforcement of Business Rules</span>
+                        <span class="week-label">W8</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Weak Isolation on Dual-use Endpoint</span>
+                        <span class="week-label">W8</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Insufficient Workflow Validation</span>
+                        <span class="week-label">W8</span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Section 10: XSS -->
+        <div class="phase-card">
+            <div class="phase-header">
+                <span class="phase-number">S10</span>
+                <span class="phase-title">Cross-Site Scripting (XSS)</span>
+                <span class="duration-badge">Days 53-60 | 5 lec</span>
+            </div>
+            <ul class="lecture-list">
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">What Is Cross-Site Scripting (XSS)?</span>
+                        <span class="week-label">W8</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Reflected XSS into HTML Context with Nothing Encoded</span>
+                        <span class="week-label">W8</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Stored XSS into HTML Context with Nothing Encoded</span>
+                        <span class="week-label">W8</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">DOM XSS in document.write Sink using Source location.search</span>
+                        <span class="week-label">W8</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">DOM XSS in innerHTML Sink using Source location.search</span>
+                        <span class="week-label">W8</span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+
+        <!-- MONTH 3: DAYS 61-90 (WEEKS 9-13) -->
+        <div class="phase-separator">╔═══════════════════════════════════════════════╗<br>MONTH 3: ADVANCED MASTERY & PRACTICAL HACKING (Days 61-90)<br>SQL • Recon • XXE • Auth • Metasploit • PrivEsc • CTF<br>╚═══════════════════════════════════════════════╝</div>
+
+        <!-- Section 11-12: SQL Injection -->
+        <div class="phase-card">
+            <div class="phase-header">
+                <span class="phase-number">S11-12</span>
+                <span class="phase-title">SQL Injection Mastery</span>
+                <span class="duration-badge">Days 61-72 | 9 lec</span>
+            </div>
+            <ul class="lecture-list">
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">SQL Programming for SQL Injection</span>
+                        <span class="week-label">W9</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">What is SQL Injection</span>
+                        <span class="week-label">W9</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">SQL Injection Vulnerability Allowing Login Bypass</span>
+                        <span class="week-label">W9</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">SQL Injection UNION Attack - Determining Column Count</span>
+                        <span class="week-label">W9</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">SQL Injection UNION Attack - Finding String Column</span>
+                        <span class="week-label">W10</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">SQL Injection UNION Attack - Retrieve Other Tables Data</span>
+                        <span class="week-label">W10</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">SQL Injection - Multiple Values in Single Column</span>
+                        <span class="week-label">W10</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">SQL Injection - List Database Contents</span>
+                        <span class="week-label">W10</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Blind SQL Injection with Time Delays</span>
+                        <span class="week-label">W10</span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Section 13: Recon & Automation -->
+        <div class="phase-card">
+            <div class="phase-header">
+                <span class="phase-number">S13</span>
+                <span class="phase-title">Recon & Automation Tools</span>
+                <span class="duration-badge">Days 73-80 | 14 lec</span>
+            </div>
+            <ul class="lecture-list">
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Introduction to Recon and Automation</span>
+                        <span class="week-label">W11</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Installation Of Subfinder - Subdomain Enumeration</span>
+                        <span class="week-label">W11</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Installation Of Assetfinder - Subdomain Enumeration</span>
+                        <span class="week-label">W11</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Configure And Install Findomain - Subdomain Enumeration</span>
+                        <span class="week-label">W11</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">How To Install Waymore URLs</span>
+                        <span class="week-label">W11</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Configure And Install HTTPX Tool</span>
+                        <span class="week-label">W12</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Install Katana Tool</span>
+                        <span class="week-label">W12</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">How To Install Nuclei Framework - Exploitation</span>
+                        <span class="week-label">W12</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">How To Install And Configure Nuclei Templates</span>
+                        <span class="week-label">W12</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Install Parallel, Qsreplace Tools</span>
+                        <span class="week-label">W12</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Putting It All Together - Web Security Automation Part 1</span>
+                        <span class="week-label">W12</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Web Security Automation Part 2</span>
+                        <span class="week-label">W12</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Exploitation Phase - Web Security Automation Part 3</span>
+                        <span class="week-label">W12</span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Section 14: XXE -->
+        <div class="phase-card">
+            <div class="phase-header">
+                <span class="phase-number">S14</span>
+                <span class="phase-title">XXE Injection Attacks</span>
+                <span class="duration-badge">Days 81-83 | 4 lec</span>
+            </div>
+            <ul class="lecture-list">
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Introduction To XML Injection Attacks</span>
+                        <span class="week-label">W12</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Exploiting XXE Using External Entities To Retrieve Files</span>
+                        <span class="week-label">W12</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Exploiting XXE To Perform SSRF Attacks</span>
+                        <span class="week-label">W12</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Blind XXE With Out-Of-Band Interaction</span>
+                        <span class="week-label">W13</span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Section 15: Authentication -->
+        <div class="phase-card">
+            <div class="phase-header">
+                <span class="phase-number">S15</span>
+                <span class="phase-title">Authentication Vulnerabilities</span>
+                <span class="duration-badge">Days 84-86 | 4 lec</span>
+            </div>
+            <ul class="lecture-list">
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Introduction To Authentication Vulnerabilities</span>
+                        <span class="week-label">W13</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Username Enumeration Via Subtly Different Responses</span>
+                        <span class="week-label">W13</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">2FA Simple Bypass</span>
+                        <span class="week-label">W13</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Password Reset Broken Logic</span>
+                        <span class="week-label">W13</span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Section 16-18: Practical Hacking & Tools -->
+        <div class="phase-card">
+            <div class="phase-header">
+                <span class="phase-number">S16-18</span>
+                <span class="phase-title">Practical Hacking & Advanced Tools</span>
+                <span class="duration-badge">Days 87-90 | 14 lec</span>
+            </div>
+            <ul class="lecture-list">
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">The Art Of Hacking - Reconnaissance</span>
+                        <span class="week-label">W13</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">NetSec Challenge - Reconnaissance Part 2</span>
+                        <span class="week-label">W13</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Practical Vulnerabilities Exploitation</span>
+                        <span class="week-label">W13</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Penetration Testing Vulnerabilities 101</span>
+                        <span class="week-label">W13</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Mastering Metasploit Framework Part 1</span>
+                        <span class="week-label">W13</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Hack Windows Machine Using Metasploit</span>
+                        <span class="week-label">W13</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Introduction To Privilege Escalation</span>
+                        <span class="week-label">W13</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Enumerate Linux Manually</span>
+                        <span class="week-label">W13</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Automation Techniques For Linux Enumeration</span>
+                        <span class="week-label">W13</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Kernel Exploit Linux Privilege Escalation</span>
+                        <span class="week-label">W13</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Sudo: Linux Privilege Escalation</span>
+                        <span class="week-label">W13</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Cron Jobs Privilege Escalation</span>
+                        <span class="week-label">W13</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Capabilities & PATH Linux Escalation</span>
+                        <span class="week-label">W13</span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Section 19-20: CTF & Capstone -->
+        <div class="phase-card">
+            <div class="phase-header">
+                <span class="phase-number">S19-20</span>
+                <span class="phase-title">CTF Mastery & Capstone</span>
+                <span class="duration-badge">Days 88-90 | 6 lec</span>
+            </div>
+            <ul class="lecture-list">
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Mr. Robot CTF Walkthrough</span>
+                        <span class="week-label">W13</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Vulnversity — Complete Walkthrough (Hack Linux Machine)</span>
+                        <span class="week-label">W13</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Retro — Full Walkthrough (Hack Windows Machine)</span>
+                        <span class="week-label">W13</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">SkyNet — CTF Challenge Walkthrough</span>
+                        <span class="week-label">W13</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">DailyBugle — TryHackMe Room Walkthrough</span>
+                        <span class="week-label">W13</span>
+                    </label>
+                </li>
+                <li class="lecture-item">
+                    <label>
+                        <input type="checkbox" onchange="updateProgress()">
+                        <span class="lecture-text">Bash Scripting for Hackers</span>
+                        <span class="week-label">W13</span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Final Goal Section -->
+        <div class="goal-section">
+            <div class="goal-title">>>> 90-DAY MASTERY BOOTCAMP COMPLETE <<<</div>
+            <div class="goal-subtitle">Professional Cybersecurity Expert • Job Ready • Industry Standard</div>
+            <div class="goal-items">
+                <div class="goal-item">
+                    <div class="goal-item-value">98</div>
+                    <div class="goal-item-label">Lectures Mastered</div>
+                </div>
+                <div class="goal-item">
+                    <div class="goal-item-value">20</div>
+                    <div class="goal-item-label">Sections Completed</div>
+                </div>
+                <div class="goal-item">
+                    <div class="goal-item-value">90</div>
+                    <div class="goal-item-label">Days Committed</div>
+                </div>
+                <div class="goal-item">
+                    <div class="goal-item-value">∞</div>
+                    <div class="goal-item-label">Career Success</div>
+                </div>
+            </div>
+            <p style="margin-top: 20px; color: var(--accent); font-family: var(--font-mono); font-weight: bold;">
+                [ JANUARY 3 → APRIL 3, 2026 | MONTH 1: FOUNDATIONS | MONTH 2: INTERMEDIATE | MONTH 3: ADVANCED | SYSTEM FULLY PWNED ]
+            </p>
+        </div>
+
+    </div>
+
+    <footer>
+        >> SYSTEM INITIALIZED | 90-DAY CYBERSECURITY BOOTCAMP | START: Jan 3, 2026 | TARGET: Apr 3, 2026 | INDUSTRY-GRADE MASTERY ACTIVATED
+    </footer>
+
+    <script>
+        const startDate = new Date(2026, 0, 3); // January 3, 2026
+        const endDate = new Date(2026, 3, 3); // April 3, 2026
+
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const total = checkboxes.length;
+            let checked = 0;
+
+            checkboxes.forEach(box => {
+                if (box.checked) {
+                    checked++;
+                    const item = box.closest('.lecture-item');
+                    if (item) item.classList.add('completed');
+                } else {
+                    const item = box.closest('.lecture-item');
+                    if (item) item.classList.remove('completed');
+                }
+            });
+
+            // Count lectures
+            const lectureCheckboxes = document.querySelectorAll('.lecture-item input[type="checkbox"]');
+            let completedLectures = 0;
+            lectureCheckboxes.forEach(box => {
+                if (box.checked) completedLectures++;
+            });
+
+            // Count sections
+            const phaseCards = document.querySelectorAll('.phase-card:not(:last-child)');
+            let completedSections = 0;
+            phaseCards.forEach(card => {
+                const cardCheckboxes = card.querySelectorAll('input[type="checkbox"]');
+                let cardComplete = true;
+                cardCheckboxes.forEach(cb => {
+                    if (!cb.checked) cardComplete = false;
+                });
+                if (cardComplete && cardCheckboxes.length > 0) {
+                    completedSections++;
+                    card.classList.add('completed');
+                } else {
+                    card.classList.remove('completed');
+                }
+            });
+
+            const percentage = Math.round((checked / total) * 100);
+
+            // Calculate days remaining
+            const today = new Date();
+            const daysRemaining = Math.max(0, Math.ceil((endDate - today) / (1000 * 60 * 60 * 24)));
+
+            // Update stats
+            document.getElementById('completedLectures').innerText = completedLectures;
+            document.getElementById('completedSections').innerText = completedSections;
+            document.getElementById('percentText').innerText = percentage;
+            document.getElementById('daysRemaining').innerText = daysRemaining;
+            document.getElementById('progressBar').style.width = percentage + '%';
+            document.getElementById('progressBar').innerText = percentage > 10 ? percentage + '%' : '';
+
+            // Easter Egg when complete
+            if (percentage === 100) {
+                const goalTitle = document.querySelector('.goal-title');
+                goalTitle.innerText = ">>> YOU ARE OFFICIALLY HIRED. SYSTEM FULLY PWNED. <<<";
+                goalTitle.style.color = "#00ff41";
+                goalTitle.style.textShadow = "0 0 30px #00ff41";
+            }
+
+            // Save progress
+            localStorage.setItem('cybersec90progress', JSON.stringify(
+                Array.from(checkboxes).map(box => box.checked)
+            ));
+        }
+
+        // Load progress on page load
+        window.addEventListener('load', () => {
+            const savedProgress = localStorage.getItem('cybersec90progress');
+            if (savedProgress) {
+                const states = JSON.parse(savedProgress);
+                document.querySelectorAll('input[type="checkbox"]').forEach((box, index) => {
+                    if (states[index]) box.checked = true;
+                });
+            }
+            updateProgress();
+        });
+
+        // Save progress on every change
+        document.addEventListener('change', (e) => {
+            if (e.target.type === 'checkbox') {
+                updateProgress();
+            }
+        });
+
+        // Update calendar progress when day checkboxes change
+        function updateCalendarProgress() {
+            const dayCheckboxes = document.querySelectorAll('.day-checkbox');
+            let completedDays = 0;
+            const completedDates = [];
+
+            dayCheckboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    completedDays++;
+                    completedDates.push(checkbox.dataset.date);
+                    checkbox.closest('.calendar-day').classList.add('checked');
+                } else {
+                    checkbox.closest('.calendar-day').classList.remove('checked');
+                }
+            });
+
+            // Save to localStorage
+            localStorage.setItem('calendarCheckboxes', JSON.stringify({
+                completedDays: completedDays,
+                totalDays: 90,
+                dates: completedDates,
+                lastUpdated: new Date().toISOString()
+            }));
+
+            // Optionally update main progress stats (if desired)
+            // You can uncomment below to sync calendar progress with main stats
+            // const percentage = Math.round((completedDays / 90) * 100);
+            // document.getElementById('percentText').innerText = percentage;
+            // document.getElementById('progressBar').style.width = percentage + '%';
+        }
+
+        // Restore calendar checkboxes on page load
+        window.addEventListener('load', () => {
+            const savedCalendar = localStorage.getItem('calendarCheckboxes');
+            if (savedCalendar) {
+                try {
+                    const data = JSON.parse(savedCalendar);
+                    data.dates.forEach(date => {
+                        const checkbox = document.querySelector(`[data-date="${date}"]`);
+                        if (checkbox) {
+                            checkbox.checked = true;
+                            checkbox.closest('.calendar-day').classList.add('checked');
+                        }
+                    });
+                } catch (e) {
+                    console.log('Could not restore calendar progress');
+                }
+            }
+        }, false);
+    </script>
+</body>
+</html>
